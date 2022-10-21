@@ -1,4 +1,9 @@
-#By Crecker 
+"""
+######################
+##                  ##
+##      PYTHON      ##
+##                  ##
+######################"""
 
 from vosk import Model, KaldiRecognizer
 import speech_recognition
@@ -11,6 +16,22 @@ import webbrowser
 
 from time import sleep
 from random import randint
+
+print("""
+VERSION : 0.1 
+By Dima 😃
+""")
+
+print("""
+Новые версии всегда тут : https://github.com/Cr-e-ker/DemoAssistent-PYthon
+""")
+
+# проверка наличия модели на нужном языке в каталоге приложения
+if (not os.path.exists("offline/vosk-model")):
+    print("""
+    Скачайте offline версию на:\nhttps://alphacephei.com/vosk/models и распакуйте в папку 'offline' под именем 'vosk-model'
+    """)
+    exit()
 
 def record_and_recognize_audio(*args: tuple):
     """Запись и распознавание аудио"""
@@ -27,7 +48,7 @@ def record_and_recognize_audio(*args: tuple):
                 file.write(audio.get_wav_data())
 
         except speech_recognition.WaitTimeoutError:
-            print("Проверьте свой микрофон")
+            print("Плохо слышно")
             return
 
         try:
@@ -53,12 +74,6 @@ def use_offline_recognition():
 	"""
     recognized_data = ""
     try:
-        # проверка наличия модели на нужном языке в каталоге приложения
-        if not os.path.exists("offline/vosk-model-small-ru-0.22"):
-            print("Скачайте версию на:\n"
-                  "https://alphacephei.com/vosk/models и распакуйте в папку 'model'")
-            exit()
-
         # анализ записанного в микрофон аудио (чтобы избежать повторов фразы)
         wave_audio_file = wave.open("microphone-results.wav", "rb")
         model = Model("offline/vosk-model-small-ru-0.22")
@@ -81,6 +96,7 @@ def command_Name(command_name: str, *args: list):
     ("video", "youtube", "watch", "видео") : search_youtube_video,
     ("music", "музыка", "трек", "бит", "песня") : search_music,
     ("фоновую музыку", "рандомный плейлист", "рандомный трек") : search_random_music,
+    ("сколько сейчас времени", "который час", "какое время") : nowetime
     }
 
     for key in commands.keys():
@@ -90,18 +106,34 @@ def command_Name(command_name: str, *args: list):
             pass
 
 def search_youtube_video(*args: tuple):
-    if not args[0]:
-        return
+    # if not args[0]:
+    #     return
 
     search_term = " ".join(args[0])
     url = "https://www.youtube.com/results?search_query=" + search_term
     webbrowser.open(url)
 
-def search_music():
-    pass
+def search_music(*args):
+    music = " ".join(args[0])
+    url = "https://www.youtube.com/results?search_query=" + music
+    webbrowser.open(url)
 
 def search_random_music():
-    pass
+    randoms_5 = randint(0, 5)
+
+    if (randoms_5 == 1):
+        webbrowser.open("https://www.youtube.com/watch?v=TdydPefLYeI")
+    elif (randoms_5 == 2):
+        webbrowser.open("https://www.youtube.com/watch?v=rUxyKA_-grg")
+    elif (randoms_5 == 3):
+        webbrowser.open("https://www.youtube.com/watch?v=jfKfPfyJRdk")
+    elif (randoms_5 == 4):
+        webbrowser.open("https://www.youtube.com/watch?v=-5KAN9_CzSA")
+    else:
+        webbrowser.open("https://www.youtube.com/watch?v=5yx6BWlEVcY")
+
+def nowetime():
+    print(datetime.datetime.now())
 
 if __name__ == "__main__":
 
