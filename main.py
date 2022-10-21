@@ -1,4 +1,4 @@
-#BY Creker
+#By Crecker 
 
 from vosk import Model, KaldiRecognizer
 import speech_recognition
