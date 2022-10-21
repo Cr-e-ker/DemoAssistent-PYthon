@@ -19,8 +19,7 @@ from random import randint
 
 print("""
 VERSION : 0.1 
-By Dima 😃
-""")
+By Dima 😃""")
 
 print("""
 Новые версии всегда тут : https://github.com/Cr-e-ker/DemoAssistent-PYthon
